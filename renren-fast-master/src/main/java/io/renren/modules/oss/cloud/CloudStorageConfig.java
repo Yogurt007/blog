@@ -49,8 +49,8 @@ public class CloudStorageConfig implements Serializable {
     private String qiniuBucketName;
 
     //阿里云绑定的域名
-    @NotBlank(message="阿里云绑定的域名不能为空", groups = AliyunGroup.class)
-    @URL(message = "阿里云绑定的域名格式不正确", groups = AliyunGroup.class)
+    //@NotBlank(message="阿里云绑定的域名不能为空", groups = AliyunGroup.class)
+    //@URL(message = "阿里云绑定的域名格式不正确", groups = AliyunGroup.class)
     private String aliyunDomain;
     //阿里云路径前缀
     private String aliyunPrefix;

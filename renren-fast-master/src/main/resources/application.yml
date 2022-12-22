@@ -53,7 +53,7 @@ mybatis-plus:
     db-config:
       #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
       id-type: AUTO
-      logic-delete-value: -1
+      logic-delete-value: 1
       logic-not-delete-value: 0
     banner: false
   #原生配置

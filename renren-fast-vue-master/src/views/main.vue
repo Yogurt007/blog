@@ -13,7 +13,6 @@
     </template>
   </div>
 </template>
-
 <script>
   import MainNavbar from './main-navbar'
   import MainSidebar from './main-sidebar'

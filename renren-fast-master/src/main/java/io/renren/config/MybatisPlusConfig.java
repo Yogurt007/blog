@@ -9,6 +9,7 @@
 package io.renren.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Mark sunlightcs@gmail.com
  */
-@Configuration
+@MapperScan("io.renren.modules")
 public class MybatisPlusConfig {
 
     /**

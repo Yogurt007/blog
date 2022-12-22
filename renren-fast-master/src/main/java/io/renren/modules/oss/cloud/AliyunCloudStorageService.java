@@ -10,6 +10,7 @@ package io.renren.modules.oss.cloud;
 
 import com.aliyun.oss.OSSClient;
 import io.renren.common.exception.RRException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import java.io.InputStream;
  * 阿里云存储
  *
  */
+@Slf4j
 public class AliyunCloudStorageService extends CloudStorageService {
     private OSSClient client;
 
@@ -29,8 +31,8 @@ public class AliyunCloudStorageService extends CloudStorageService {
     }
 
     private void init(){
-        client = new OSSClient(config.getAliyunEndPoint(), config.getAliyunAccessKeyId(),
-                config.getAliyunAccessKeySecret());
+        log.info("阿里云初始化，id[{}],secret[{}]",config.getAliyunAccessKeyId(),config.getAliyunAccessKeySecret());
+        client = new OSSClient(config.getAliyunEndPoint(),config.getAliyunAccessKeyId(), config.getAliyunAccessKeySecret());
     }
 
     @Override

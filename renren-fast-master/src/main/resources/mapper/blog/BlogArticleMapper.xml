@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.renren.modules.blog.dao.BlogArticleDao">
+
+    <select id="articleList" resultType="io.renren.modules.blog.entity.BlogArticleEntity">
+        select * from blog_article
+    </select>
+
+</mapper>
