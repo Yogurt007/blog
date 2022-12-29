@@ -9,7 +9,7 @@
         <el-menu-item index="Fblog-list" @click="$router.push({ name: 'front-blog-list' })">
             <span class="title">博客</span>
         </el-menu-item>
-        <el-menu-item index="record-list" @click="$router.push({ name: 'record-list' })">
+        <el-menu-item index="record-list" @click="$router.push({ name: 'front-record-list' })">
             <span class="title">生活</span>
         </el-menu-item>
         <el-menu-item index="3">

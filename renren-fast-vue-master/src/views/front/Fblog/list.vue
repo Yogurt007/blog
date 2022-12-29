@@ -49,7 +49,7 @@ export default {
     };
   },
   created() {
-    this.getBlogList();
+    this.getArticleList();
   },
   methods: {
     getBlogList() {
@@ -62,6 +62,22 @@ export default {
           console.log("获取博客列表成功");
           console.log(data.list);
           this.list = data.list;
+        }
+      });
+    },
+    getArticleList(page = 1) {
+      this.page = page;
+      this.$http({
+        url: this.$http.adornUrl(
+          "/blog/article/page/" + this.page + "/" + this.limit
+        ),
+        methods: "get",
+      }).then(({ data }) => {
+        if (data && data.code === 0) {
+          this.list = data.pageInfo.records;
+          this.total = data.pageInfo.records.length;
+        } else {
+            this.$message.error("获取文章列表失败");
         }
       });
     },

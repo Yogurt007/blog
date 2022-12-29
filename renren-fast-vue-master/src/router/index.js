@@ -36,8 +36,8 @@ const globalRoutes = [
         component:_import('front/home')
       },
       {
-        name:'record-list',
-        path:'/record-list',
+        name:'front-record-list',
+        path:'/front-record-list',
         component:_import('front/record/list')
       },
       {
@@ -66,7 +66,7 @@ const mainRoutes = {
     { path: '/demo-echarts', component: _import('demo/echarts'), name: 'demo-echarts', meta: { title: 'demo-echarts', isTab: true } },
     { path: '/demo-ueditor', component: _import('demo/ueditor'), name: 'demo-ueditor', meta: { title: 'demo-ueditor', isTab: true } },
     { path: '/blog-list', component: _import('modules/blog/list'), name: 'blog-list', meta: { title: '列表', isTab: true } },
-    { path: '/blog-update', component: _import('modules/blog/write'), name: 'blog-update', meta: { title: '更新', isTab: true } },
+    { path: '/blog-update', component: _import('modules/blog/write'), name: 'blog-update', meta: { title: '写', isTab: true } },
 
     // { path: '/front-blog-list', component: _import('front/blog/list'), name: 'front-blog-list', meta: { title: '列表', isTab: true } },
   ],

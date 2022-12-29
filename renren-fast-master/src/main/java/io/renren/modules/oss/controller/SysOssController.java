@@ -106,7 +106,8 @@ public class SysOssController {
 		ossEntity.setCreateDate(new Date());
 		sysOssService.save(ossEntity);
 
-		return R.ok().put("url", url);
+		String URL = "https://edu-po.oss-cn-beijing.aliyuncs.com" + url;
+		return R.ok().put("url", URL);
 	}
 
 

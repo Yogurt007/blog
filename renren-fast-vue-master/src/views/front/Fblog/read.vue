@@ -5,7 +5,7 @@
       :id="ueId"
       class="ueditor-box"
       type="text/plain"
-      style="width: 100%; height: 650px"
+      style="width: 100%; height: 700px"
     ></script>
   </div>
 </template>
@@ -44,6 +44,8 @@ export default {
       readonly: true,
       toolbars: [""],
       initialContent: "hello world",
+      enableAutoSave:false,
+      wordCount:false
     });
   },
   methods:{
