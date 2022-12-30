@@ -3,6 +3,7 @@ package io.renren.modules.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.modules.blog.dao.BlogRecordsDao;
+import io.renren.modules.blog.dto.ArtDto;
 import io.renren.modules.blog.dto.RecordsDto;
 import io.renren.modules.blog.entity.BlogArtEntity;
 import io.renren.modules.blog.entity.BlogRecordsEntity;
@@ -11,6 +12,7 @@ import io.renren.modules.blog.service.BlogRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,12 +44,29 @@ public class BlogRecordsServiceImpl extends ServiceImpl<BlogRecordsDao, BlogReco
         for (String url : urlList) {
             BlogArtEntity art = new BlogArtEntity();
             art.setUrl(url);
-            art.setParent_id(id);
+            art.setParentId(id);
             boolean saveArt = blogArtService.save(art);
             if (!saveArt){
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public List<ArtDto> listDto() {
+        List<BlogRecordsEntity> recordsList = this.list();
+        List<ArtDto> artDtoList = new ArrayList<>();
+        for (BlogRecordsEntity records : recordsList) {
+            ArtDto artDto = new ArtDto();
+            artDto.setBlogRecordsEntity(records);
+            QueryWrapper<BlogArtEntity> queryWrapper = new QueryWrapper<>();
+            System.out.println("id：" + records.getId());
+            queryWrapper.eq("parent_id",records.getId());
+            List<BlogArtEntity> artList = blogArtService.list(queryWrapper);
+            artDto.setArtList(artList);
+            artDtoList.add(artDto);
+        }
+        return artDtoList;
     }
 }

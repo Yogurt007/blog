@@ -20,10 +20,11 @@ public class BlogArtEntity {
     private Long id;
 
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long parent_id;
+    private Long parentId;
 
     private String url;
 
+    @TableField("`describe`")
     private String describe;
 
     @TableLogic

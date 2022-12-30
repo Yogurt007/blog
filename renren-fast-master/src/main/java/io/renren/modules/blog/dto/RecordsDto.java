@@ -2,6 +2,7 @@ package io.renren.modules.blog.dto;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,4 @@ public class RecordsDto {
     private List<String> describe;
 
     private List<String> url;
-
-
 }

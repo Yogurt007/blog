@@ -1,6 +1,5 @@
 <template>
   <div class="footer-main">
-    底部
   </div>
 </template>
 
@@ -15,6 +14,6 @@ export default {
   height: 100px;
     width: 70%;
     margin: auto;
-    background-color:#f9f9f9;
+    /* background-color:#f9f9f9; */
 }
 </style>
