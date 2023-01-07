@@ -24,6 +24,8 @@ public class BlogArticleEntity {
 
     private String content;
 
+    private String type;
+
     private int look;
 
     private int love;

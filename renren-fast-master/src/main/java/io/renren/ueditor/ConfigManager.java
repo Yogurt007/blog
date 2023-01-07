@@ -173,10 +173,13 @@ public final class ConfigManager {
 	
 	private String getConfigPath () {
 		//return this.parentPath + File.separator + ConfigManager.configFileName;
-//		String path = this.parentPath
+//		String path = this.rootPath
 //				+ File.separator + "conf"
 //				+ File.separator + ConfigManager.configFileName;
-		String path = "D:\\github\\blog\\renren-fast-master\\src\\main\\webapp\\config.json";
+		//String path = "D:\\github\\blog\\renren-fast-master\\src\\main\\webapp\\config.json";
+		// webapp目录
+		String classpath = this.getClass().getResource("/").getPath().replaceFirst("/", "");
+		String path = classpath + "static/" + ConfigManager.configFileName;
 		log.info("ueditor加载配置文件的路径为：{}",path);
 		return path;
 	}

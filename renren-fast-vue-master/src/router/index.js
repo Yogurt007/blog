@@ -26,9 +26,9 @@ const globalRoutes = [
     name: 'front', meta: { title: '前台' } ,
     children:[
       {
-        name:'front-blog-list',
-        path:'/front-blog-list',
-        component:_import('front/Fblog/list')
+        name:'front-codeBook-list',
+        path:'/front-codeBook-list',
+        component:_import('front/codeBook/list')
       },
       {
         name:'front-home',
@@ -41,9 +41,19 @@ const globalRoutes = [
         component:_import('front/record/list')
       },
       {
-        name:'front-blog-read',
-        path:'/front-blog-read',
-        component:_import('front/Fblog/read')
+        name:'front-codeBook-read',
+        path:'/front-codeBook-read',
+        component:_import('front/codeBook/read')
+      },
+      {
+        name:'front-notes-list',
+        path:'/front-notes-list',
+        component:_import('front/notes/list')
+      },
+      {
+        name:'front-notes-read',
+        path:'/front-notes-read',
+        component:_import('front/notes/read')
       }
     ]
   },

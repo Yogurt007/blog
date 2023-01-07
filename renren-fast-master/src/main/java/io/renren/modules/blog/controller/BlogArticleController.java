@@ -42,11 +42,34 @@ public class BlogArticleController {
 
     @ApiOperation("分页列表")
     @GetMapping("/page/{page}/{pageSize}")
-    public R page(@PathVariable("page") int page,@PathVariable("pageSize") int pageSize){
-        System.out.println("正在获取分页数据" + page + "|" + pageSize);
+    public R Page(@PathVariable("page") int page,@PathVariable("pageSize") int pageSize){
         Page<BlogArticleEntity> pageInfo = new Page<>(page, pageSize);
         LambdaQueryWrapper<BlogArticleEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.orderByDesc(BlogArticleEntity::getUpdateTime);
+        queryWrapper.orderByDesc(BlogArticleEntity::getCreateTime);
+        blogArticleService.page(pageInfo,queryWrapper);
+        System.out.println(pageInfo);
+        return R.ok().put("pageInfo",pageInfo);
+    }
+
+    @ApiOperation("码录分页列表")
+    @GetMapping("/codeBookPage/{page}/{pageSize}")
+    public R codeBookPage(@PathVariable("page") int page,@PathVariable("pageSize") int pageSize){
+        Page<BlogArticleEntity> pageInfo = new Page<>(page, pageSize);
+        LambdaQueryWrapper<BlogArticleEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(BlogArticleEntity::getCreateTime);
+        queryWrapper.eq(BlogArticleEntity::getType,"码录");
+        blogArticleService.page(pageInfo,queryWrapper);
+        System.out.println(pageInfo);
+        return R.ok().put("pageInfo",pageInfo);
+    }
+
+    @ApiOperation("随写分页列表")
+    @GetMapping("/notesPage/{page}/{pageSize}")
+    public R notesPage(@PathVariable("page") int page,@PathVariable("pageSize") int pageSize){
+        Page<BlogArticleEntity> pageInfo = new Page<>(page, pageSize);
+        LambdaQueryWrapper<BlogArticleEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(BlogArticleEntity::getCreateTime);
+        queryWrapper.eq(BlogArticleEntity::getType,"随笔");
         blogArticleService.page(pageInfo,queryWrapper);
         System.out.println(pageInfo);
         return R.ok().put("pageInfo",pageInfo);

@@ -9,7 +9,17 @@
         <p class="el-alert__description">2. 浏览器控制台报错“请求后台配置项http错误，上传功能将不能正常使用！”，此错需要后台提供上传接口方法（赋值给serverUrl属性）</p>
       </div>
     </el-alert> -->
-    <div><el-input v-model="title"></el-input></div>
+    <div>
+      <el-input v-model="title" placeholder="请输入你的标题~"></el-input>
+      <el-select v-model="type" class="m-2" placeholder="Select" size="large">
+        <el-option
+          v-for="(item,index) in options"
+          :key="index"
+          :label="item"
+          :value="item"
+        />
+      </el-select>
+    </div>
     <script
       :id="ueId"
       class="ueditor-box"
@@ -49,13 +59,14 @@ export default {
       id: "",
       updateStatus: false,
       content: "Hello world!",
+      options: ["码录", "随笔"],
+      type: "码录",
     };
   },
   mounted() {
     this.ue = ueditor.getEditor(this.ueId, {
       // serverUrl: '', // 服务器统一请求接口路径
-      imageUrlPrefix: "http://localhost:8080/",
-
+      imageUrlPrefix: "http://localhost:9001/",
       zIndex: 3000,
     });
   },
@@ -75,6 +86,7 @@ export default {
           data: this.$http.adornData({
             title: this.title,
             content: this.ueContent,
+            type:this.type
           }),
         }).then(({ data }) => {
           if (data && data.code === 0) {
@@ -90,14 +102,14 @@ export default {
         this.$message.error("保存失败");
       }
     },
-    update(){
+    update() {
       this.ueContent = this.ue.getContent();
       if (this.title.length != 0 && this.ueContent.length != 0) {
         this.$http({
           url: this.$http.adornUrl("/blog/article/update"),
           method: "post",
           data: this.$http.adornData({
-            id:this.id,
+            id: this.id,
             title: this.title,
             content: this.ueContent,
           }),
@@ -108,7 +120,7 @@ export default {
               type: "success",
               duration: 1500,
             });
-          }else{
+          } else {
             this.$message.error("更新失败");
           }
         });

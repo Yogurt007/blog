@@ -18,6 +18,8 @@
 
       <el-table-column prop="content" label="内容" :show-overflow-tooltip="true"></el-table-column>
 
+      <el-table-column prop="type" label="类型" width="60" />
+
       <el-table-column prop="look" label="浏览数" width="60" />
 
       <el-table-column prop="love" label="点赞数" width="60" />

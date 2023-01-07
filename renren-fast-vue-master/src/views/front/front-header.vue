@@ -3,19 +3,22 @@
     <div class=""></div>
     <div class="navigation">
       <el-menu class="site-navbar__menu" mode="horizontal">
-        <el-menu-item index="home" @click="$router.push({ name: 'front-home' })">
+        <el-menu-item index="1" @click="$router.push({ name: 'front-home' })">
             <span class="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="Fblog-list" @click="$router.push({ name: 'front-blog-list' })">
-            <span class="title">博客</span>
+        <el-menu-item index="2" @click="$router.push({ name: 'front-codeBook-list' })">
+            <span class="title">码录</span>
         </el-menu-item>
-        <el-menu-item index="record-list" @click="$router.push({ name: 'front-record-list' })">
-            <span class="title">生活</span>
+        <el-menu-item index="3" @click="$router.push({ name: 'front-notes-list' })">
+            <span class="title">随笔</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="4" @click="$router.push({ name: 'front-record-list' })">
+            <span class="title">文艺</span>
+        </el-menu-item>
+        <el-menu-item index="5">
             <span class="title">墙</span>
         </el-menu-item>
-      </el-menu>
+      </el-menu>  
     </div>
   </div>
 </template>

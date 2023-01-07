@@ -1,5 +1,6 @@
 package io.renren.modules.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.modules.blog.dao.BlogRecordsDao;
@@ -55,7 +56,9 @@ public class BlogRecordsServiceImpl extends ServiceImpl<BlogRecordsDao, BlogReco
 
     @Override
     public List<ArtDto> listDto() {
-        List<BlogRecordsEntity> recordsList = this.list();
+        LambdaQueryWrapper<BlogRecordsEntity> Wrapper = new LambdaQueryWrapper<>();
+        Wrapper.orderByDesc(BlogRecordsEntity::getCreateTime);
+        List<BlogRecordsEntity> recordsList = this.list(Wrapper);
         List<ArtDto> artDtoList = new ArrayList<>();
         for (BlogRecordsEntity records : recordsList) {
             ArtDto artDto = new ArtDto();

@@ -10,8 +10,8 @@
                   artDto.blogRecordsEntity.createTime.substring(0, 10)
                 }}</span>
               </div>
-              <div>
-                <span>{{ artDto.blogRecordsEntity.title }}</span>
+              <div class="art-title">
+                <span class="title">"{{ artDto.blogRecordsEntity.title }}"</span>
               </div>
               <div>
                 <div v-for="(art, index) in artDto.artList" :key="index" class="art-div">
@@ -19,6 +19,7 @@
                 </div>
               </div>
             </section>
+            <div class="line"></div>
           </li>
         </ul>
       </article>
@@ -41,8 +42,6 @@ export default {
         params: this.$http.adornParams(),
       }).then(({ data }) => {
         if (data && data.code === 0) {
-          console.log("获取记录成功");
-          console.log(data.artDtoList);
           this.artDtoList = data.artDtoList;
         }
       });
@@ -66,14 +65,27 @@ export default {
 .time {
   font-weight: bold;
   font-size: 30px;
+  color: #ccc;
 }
 .art-img {
-  height: 250px;
+  height: 200px;
   object-fit: contain;
   border-radius: 20px;
+  margin-right: 20px;
 }
 .art-div{
   display: inline-block;
-  margin-bottom: 10%;
+  margin-bottom: 20px;
+}
+.art-title{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.line{
+  width: 95%;
+  height: 1px;
+  border-top: 1px solid #ccc;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 </style>
