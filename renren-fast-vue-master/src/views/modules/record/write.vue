@@ -74,6 +74,7 @@ export default {
             type: "success",
             duration: 1500,
           });
+          this.$router.push({ name: "record-list" });
         } else {
           this.$message.error("保存失败");
         }

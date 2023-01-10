@@ -18,6 +18,9 @@
         <el-menu-item index="5">
             <span class="title">墙</span>
         </el-menu-item>
+        <el-menu-item index="6" @click="$router.push({name: 'home'})">
+            <span class="title"></span>
+        </el-menu-item>
       </el-menu>  
     </div>
   </div>

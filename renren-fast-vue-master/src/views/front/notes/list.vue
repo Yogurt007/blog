@@ -1,6 +1,14 @@
 <template>
   <div class="blog-main">
     <div class="blog-article">
+      <!-- 搜索框 -->
+      <el-input placeholder="请输入内容" v-model="queryInput">
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="queryArticle()"
+        ></el-button>
+      </el-input>
       <!-- 表格 -->
     <el-table
       v-if="list"
@@ -18,7 +26,7 @@
 
       <el-table-column prop="title">
         <template slot-scope="scope">
-          <div @click="$router.push({ name: 'front-notes-read',params:{id:scope.row.id}})">
+          <div @click="$router.push({ name: 'front-blog-read',params:{id:scope.row.id}})">
             <div>
               <h1><a>{{scope.row.title}}</a></h1>
             </div>
@@ -54,6 +62,7 @@ export default {
       page: 1, //开始页
       limit: 8, //每页记录数
       total: 10, //总记录数
+      queryInput:""
     };
   },
   created() {
@@ -88,6 +97,25 @@ export default {
             this.$message.error("获取文章列表失败");
         }
       });
+    },
+    queryArticle() {
+      if (this.queryInput) {
+        var queryJson = { queryInput: this.queryInput, type: "随笔" };
+        console.log(queryJson);
+        this.$http({
+          url: this.$http.adornUrl("/blog/article/query"),
+          data: queryJson,
+          method: "post",
+        }).then(({ data }) => {
+          if (data && data.code === 0) {
+            console.log(data.queryList);
+            this.list = data.queryList;
+            this.total = data.queryList.length;
+          } else {
+            this.$message.error("获取文章列表失败");
+          }
+        });
+      }
     },
   },
 };

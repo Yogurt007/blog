@@ -19,7 +19,4 @@ export default {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-span{
-  font-size: 200%;
-}
 </style>

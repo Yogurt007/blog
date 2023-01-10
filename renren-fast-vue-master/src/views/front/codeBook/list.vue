@@ -1,39 +1,58 @@
 <template>
   <div class="blog-main">
     <div class="blog-article">
+      <!-- 搜索框 -->
+      <el-input placeholder="请输入内容" v-model="queryInput">
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="queryArticle()"
+        ></el-button>
+      </el-input>
       <!-- 表格 -->
-    <el-table
-      v-if="list"
-      :data="list.slice((page - 1) * limit, page * limit)"
-      border
-      fit
-      highlight-current-row
-      :show-header="false"
-    >
-      <el-table-column width="60" align="center">
-        <template slot-scope="scope">
-          {{ (page - 1) * limit + scope.$index + 1 }}
-        </template>
-      </el-table-column>
+      <el-table
+        v-if="list"
+        :data="list.slice((page - 1) * limit, page * limit)"
+        border
+        fit
+        highlight-current-row
+        :show-header="false"
+      >
+        <el-table-column width="60" align="center">
+          <template slot-scope="scope">
+            {{ (page - 1) * limit + scope.$index + 1 }}
+          </template>
+        </el-table-column>
 
-      <el-table-column prop="title">
-        <template slot-scope="scope">
-          <div @click="$router.push({ name: 'front-codeBook-read',params:{id:scope.row.id}})">
-            <div>
-              <h1><a>{{scope.row.title}}</a></h1>
+        <el-table-column prop="title">
+          <template slot-scope="scope">
+            <div
+              @click="
+                $router.push({
+                  name: 'front-codeBook-read',
+                  params: { id: scope.row.id },
+                })
+              "
+            >
+              <div>
+                <h1>
+                  <a>{{ scope.row.title }}</a>
+                </h1>
+              </div>
+              <div>
+                {{
+                  scope.row.content
+                    .substring(0, 100)
+                    .replace("edu-po.oss-cn-beijing", "******")
+                }}
+              </div>
             </div>
-            <div>
-              {{scope.row.content.substring(0,100).replace("edu-po.oss-cn-beijing","******")}}
-            </div>
-            
-            </div>
-        </template>
-      </el-table-column>
+          </template>
+        </el-table-column>
 
-
-      <el-table-column prop="createTime" width="100" />
-    </el-table>
-    <!-- 分页 -->
+        <el-table-column prop="createTime" width="100" />
+      </el-table>
+      <!-- 分页 -->
       <el-pagination
         :current-page="page"
         :page-size="limit"
@@ -54,6 +73,7 @@ export default {
       page: 1, //开始页
       limit: 8, //每页记录数
       total: 10, //总记录数
+      queryInput: "",
     };
   },
   created() {
@@ -79,15 +99,34 @@ export default {
         url: this.$http.adornUrl(
           "/blog/article/codeBookPage/" + this.page + "/" + this.limit
         ),
-        methods: "get",
+        method: "get",
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.list = data.pageInfo.records;
           this.total = data.pageInfo.records.length;
         } else {
-            this.$message.error("获取文章列表失败");
+          this.$message.error("获取文章列表失败");
         }
       });
+    },
+    queryArticle() {
+      if (this.queryInput) {
+        var queryJson = { queryInput: this.queryInput, type: "码录" };
+        console.log(queryJson);
+        this.$http({
+          url: this.$http.adornUrl("/blog/article/query"),
+          data: queryJson,
+          method: "post",
+        }).then(({ data }) => {
+          if (data && data.code === 0) {
+            console.log(data.queryList);
+            this.list = data.queryList;
+            this.total = data.queryList.length;
+          } else {
+            this.$message.error("获取文章列表失败");
+          }
+        });
+      }
     },
   },
 };
@@ -101,10 +140,7 @@ export default {
   margin: auto;
   background-color: #f9f9f9;
 }
-.of {
-  list-style: none;
-}
-ul{
+ul {
   margin-top: 0;
   margin-bottom: 0;
 }
