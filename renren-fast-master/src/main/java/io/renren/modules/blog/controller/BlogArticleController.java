@@ -4,14 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.renren.common.utils.R;
 import io.renren.modules.blog.entity.BlogArticleEntity;
+import io.renren.modules.blog.entity.QueryJson;
 import io.renren.modules.blog.service.BlogArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 /**
  * @author 花甲
  * @create 2022/12/16 10:41
@@ -120,4 +121,24 @@ public class BlogArticleController {
         boolean love = blogArticleService.updateById(article);
         return love ? R.ok() : R.error();
     }
+
+
+    @ApiOperation("搜索查询")
+    @PostMapping(value =  "/query")
+    public R query(@RequestBody QueryJson queryJson){
+        System.out.println(queryJson);
+        String type = queryJson.getType();
+        String queryInput = queryJson.getQueryInput();
+        LambdaQueryWrapper<BlogArticleEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BlogArticleEntity::getType,type);
+//        queryWrapper.like(BlogArticleEntity::getTitle,queryInput);
+//        queryWrapper.like(BlogArticleEntity::getContent,queryInput);
+        queryWrapper.and(blogArticleEntityLambdaQueryWrapper ->
+                blogArticleEntityLambdaQueryWrapper.like(BlogArticleEntity::getTitle,queryInput)
+                        .or()
+                        .like(BlogArticleEntity::getContent,queryInput));
+        List<BlogArticleEntity> queryList = blogArticleService.list(queryWrapper);
+        return R.ok().put("queryList",queryList);
+    }
+
 }
