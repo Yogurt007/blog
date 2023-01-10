@@ -10,6 +10,7 @@ import io.renren.modules.blog.entity.BlogArtEntity;
 import io.renren.modules.blog.entity.BlogRecordsEntity;
 import io.renren.modules.blog.service.BlogArtService;
 import io.renren.modules.blog.service.BlogRecordsService;
+import io.renren.modules.oss.service.SysOssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ public class BlogRecordsServiceImpl extends ServiceImpl<BlogRecordsDao, BlogReco
 
     @Autowired
     private BlogArtService blogArtService;
+
+    @Autowired
+    private SysOssService sysOssService;
 
     @Override
     public boolean saveDto(RecordsDto recordsDto) {
@@ -71,5 +75,22 @@ public class BlogRecordsServiceImpl extends ServiceImpl<BlogRecordsDao, BlogReco
             artDtoList.add(artDto);
         }
         return artDtoList;
+    }
+
+    //删除照片，删除数据库是同时删除阿里云，节约资源
+    @Override
+    public boolean deleteArt(Long id) {
+        boolean artRemoveResult = blogArtService.removeById(id);
+        boolean sysRevoceResult = sysOssService.removeById(id);
+        return artRemoveResult || sysRevoceResult;
+    }
+
+    @Override
+    public boolean deleteRecords(Long id) {
+        LambdaQueryWrapper<BlogArtEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BlogArtEntity::getParentId,id);
+        blogArtService.remove(queryWrapper);
+        boolean result = this.removeById(id);
+        return result;
     }
 }

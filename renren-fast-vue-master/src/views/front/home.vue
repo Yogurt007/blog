@@ -11,8 +11,8 @@ export default {
 
 <style>
 .home-body{
-  height: 1000px;
-  width: 70%;
+  height: 900px;
+  width: 50%;
   margin: auto;
   background-color: #FBFBFB;
   background-image: url(~@/assets/img/front_index.png);

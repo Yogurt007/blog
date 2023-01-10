@@ -5,7 +5,7 @@
   window.SITE_CONFIG = {};
 
   // api接口请求地址
-  window.SITE_CONFIG['baseUrl'] = 'http://localhost:9001/renren-fast';
+  window.SITE_CONFIG['baseUrl'] = 'http://localhost:9001/huajia-blog';
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名

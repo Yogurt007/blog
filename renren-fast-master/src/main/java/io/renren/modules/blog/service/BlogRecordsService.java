@@ -15,4 +15,8 @@ public interface BlogRecordsService  extends IService<BlogRecordsEntity> {
     boolean saveDto(RecordsDto recordsDto);
 
     List<ArtDto> listDto();
+
+    boolean deleteArt(Long id);
+
+    boolean deleteRecords(Long id);
 }

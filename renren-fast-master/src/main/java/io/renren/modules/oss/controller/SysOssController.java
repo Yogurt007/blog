@@ -118,7 +118,6 @@ public class SysOssController {
 	@RequiresPermissions("sys:oss:all")
 	public R delete(@RequestBody Long[] ids){
 		sysOssService.removeByIds(Arrays.asList(ids));
-
 		return R.ok();
 	}
 

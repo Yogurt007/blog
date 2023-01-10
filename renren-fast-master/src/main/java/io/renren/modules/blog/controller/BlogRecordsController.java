@@ -6,6 +6,7 @@ import io.renren.modules.blog.dto.RecordsDto;
 import io.renren.modules.blog.entity.BlogRecordsEntity;
 import io.renren.modules.blog.service.BlogArtService;
 import io.renren.modules.blog.service.BlogRecordsService;
+import io.renren.modules.oss.service.SysOssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @RestController
 @Api("博客-记录")
-@RequestMapping("/blog/records")
+    @RequestMapping("/blog/records")
 @Slf4j
 public class BlogRecordsController {
 
@@ -45,6 +46,22 @@ public class BlogRecordsController {
     public R list(){
         List<ArtDto> artDtoList = blogRecordsService.listDto();
         return R.ok().put("artDtoList",artDtoList);
+    }
+
+    @ApiOperation("删除照片")
+    @PostMapping("/deleteArt/{id}")
+    public R deleteArt(@PathVariable("id") Long id){
+        log.info("要删除art的id为{}",id);
+        boolean result = blogRecordsService.deleteArt(id);
+        return result ? R.ok() : R.error();
+    }
+
+    @ApiOperation("删除记录")
+    @PostMapping("/deleteRecords/{id}")
+    public R deleteRecords(@PathVariable("id") Long id){
+        log.info("要删除的records的id为{}",id);
+        boolean deleteRecords = blogRecordsService.deleteRecords(id);
+        return deleteRecords ? R.ok() : R.error();
     }
 
 }

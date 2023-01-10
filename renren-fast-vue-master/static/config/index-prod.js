@@ -5,7 +5,8 @@
   window.SITE_CONFIG = {};
 
   // api接口请求地址
-  window.SITE_CONFIG['baseUrl'] = 'http://demo.open.renren.io/renren-fast-server';
+  window.SITE_CONFIG['baseUrl'] = 'http://39.108.69.86:9001/huajia-blog';
+  //window.SITE_CONFIG['baseUrl'] = 'http://demo.open.renren.io/renren-fast-server';
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名

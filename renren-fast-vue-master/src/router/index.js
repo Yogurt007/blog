@@ -24,6 +24,7 @@ const globalRoutes = [
     path: '/front', 
     component: _import('front/index'), 
     name: 'front', meta: { title: '前台' } ,
+    redirect: { name: 'front-home' },
     children:[
       {
         name:'front-codeBook-list',
@@ -64,7 +65,7 @@ const mainRoutes = {
   path: '/',
   component: _import('main'),
   name: 'main',
-  redirect: { name: 'home' },
+  redirect: { name: 'front' },
   meta: { title: '主入口整体布局' },
   children: [
     // 通过meta对象设置路由展示方式
@@ -75,8 +76,11 @@ const mainRoutes = {
     { path: '/theme', component: _import('common/theme'), name: 'theme', meta: { title: '主题' } },
     { path: '/demo-echarts', component: _import('demo/echarts'), name: 'demo-echarts', meta: { title: 'demo-echarts', isTab: true } },
     { path: '/demo-ueditor', component: _import('demo/ueditor'), name: 'demo-ueditor', meta: { title: 'demo-ueditor', isTab: true } },
-    { path: '/blog-list', component: _import('modules/blog/list'), name: 'blog-list', meta: { title: '列表', isTab: true } },
+    // { path: '/blog-list', component: _import('modules/blog/list'), name: 'blog-list', meta: { title: '列表', isTab: true } },
     { path: '/blog-update', component: _import('modules/blog/write'), name: 'blog-update', meta: { title: '写', isTab: true } },
+    // { path: '/record-list', component: _import('modules/record/list'), name: 'record-list', meta: { title: '列表', isTab: true } },
+    // { path: '/record-write', component: _import('modules/record/write'), name: 'record-write', meta: { title: '照片', isTab: true } },
+
 
     // { path: '/front-blog-list', component: _import('front/blog/list'), name: 'front-blog-list', meta: { title: '列表', isTab: true } },
   ],
@@ -91,7 +95,7 @@ const mainRoutes = {
 }
 
 const router = new Router({
-  mode: 'hash',
+  mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   isAddDynamicMenuRoutes: false, // 是否已经添加动态(菜单)路由
   routes: globalRoutes.concat(mainRoutes)
@@ -190,10 +194,10 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
       { path: '*', redirect: { name: '404' } }
     ])
     sessionStorage.setItem('dynamicMenuRoutes', JSON.stringify(mainRoutes.children || '[]'))
-    console.log('\n')
-    console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
-    console.log(mainRoutes.children)
-    console.log('%c!<-------------------- 动态(菜单)路由 e -------------------->', 'color:blue')
+    // console.log('\n')
+    // console.log('%c!<-------------------- 动态(菜单)路由 s -------------------->', 'color:blue')
+    // console.log(mainRoutes.children)
+    // console.log('%c!<-------------------- 动态(菜单)路由 e -------------------->', 'color:blue')
   }
 }
 
