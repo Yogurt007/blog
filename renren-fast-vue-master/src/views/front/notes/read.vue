@@ -60,7 +60,7 @@ export default {
             type: "success",
             duration: 1500,
           });
-          console.log(data.article);
+          //console.log(data.article);
           this.title = data.article.title;
           this.ue.ready(() => {
             this.ue.setContent(data.article.content);

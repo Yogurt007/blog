@@ -8,8 +8,6 @@ import io.renren.modules.blog.entity.QueryJson;
 import io.renren.modules.blog.service.BlogArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

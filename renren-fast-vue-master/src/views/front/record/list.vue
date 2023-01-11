@@ -11,7 +11,7 @@
                 }}</span>
               </div>
               <div class="art-title">
-                <span class="title">"{{ artDto.blogRecordsEntity.title }}"</span>
+                <span class="title">{{ artDto.blogRecordsEntity.title }}</span>
               </div>
               <div>
                 <div v-for="(art, index) in artDto.artList" :key="index" class="art-div">
@@ -80,6 +80,8 @@ export default {
 .art-title{
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 20px;
+  color: #ccc;
 }
 .line{
   width: 95%;

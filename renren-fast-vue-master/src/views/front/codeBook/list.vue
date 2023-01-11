@@ -87,8 +87,8 @@ export default {
         params: this.$http.adornParams(),
       }).then(({ data }) => {
         if (data && data.code === 0) {
-          console.log("获取博客列表成功");
-          console.log(data.list);
+          // console.log("获取博客列表成功");
+          // console.log(data.list);
           this.list = data.list;
         }
       });
