@@ -55,6 +55,11 @@ const globalRoutes = [
         name:'front-notes-read',
         path:'/front-notes-read',
         component:_import('front/notes/read')
+      },
+      {
+        name:'front-wall',
+        path:'/front-wall',
+        component:_import('front/wall/index')
       }
     ]
   },

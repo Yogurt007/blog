@@ -26,20 +26,24 @@
 
         <el-table-column prop="title">
           <template slot-scope="scope">
-            <div
-              @click="
-                $router.push({
-                  name: 'front-notes-read',
-                  params: { id: scope.row.id },
-                })
-              "
-            >
+            <div>
               <div>
+                <img :src="titleImgCom(scope.row.content)" class="titleImg" />
+              </div>
+              <div
+                @click="
+                  $router.push({
+                    name: 'front-notes-read',
+                    params: { id: scope.row.id },
+                  })
+                "
+                style="margin-left:20%"
+              >
                 <h1>
                   <a>{{ scope.row.title }}</a>
                 </h1>
               </div>
-              <div>
+              <div style="margin-left:20%">
                 {{
                   scope.row.content
                     .substring(0, 100)
@@ -74,6 +78,8 @@ export default {
       limit: 8, //每页记录数
       total: 10, //总记录数
       queryInput: "",
+      titleImgUrl:
+        "https://edu-po.oss-cn-beijing.aliyuncs.com/20230110/4da8ec9a82c84d8990709d4020764549.png",
     };
   },
   created() {
@@ -128,6 +134,18 @@ export default {
         });
       }
     },
+    titleImgCom(content) {
+      //console.log(content);
+      var start = content.indexOf("<img src=");
+      var end = content.indexOf('title="helloworld"');
+      // console.log(content.indexOf("<img src=") + "-" +  content.indexOf("title=\"helloworld\""));
+      // console.log(content.substring(start+10,end-2))
+      var url = content.substring(start + 10, end - 2);
+      if (url.indexOf("png") != -1 || url.indexOf("jpg") != -1) {
+        return url;
+      }
+      return this.titleImgUrl;
+    },
   },
 };
 </script>
@@ -146,5 +164,11 @@ export default {
 ul {
   margin-top: 0;
   margin-bottom: 0;
+}
+.titleImg {
+  height: 100px;
+  width: 150px;
+  float: left;
+  object-fit: contain;
 }
 </style>

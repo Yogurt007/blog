@@ -43,9 +43,10 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.artDtoList = data.artDtoList;
-        }
+        } 
       });
     },
+    
   },
   created() {
     this.getArtDtoList();
@@ -69,8 +70,8 @@ export default {
 }
 .art-img {
   height: 200px;
+  width: 300px;
   object-fit: contain;
-  border-radius: 20px;
   margin-right: 20px;
 }
 .art-div{
