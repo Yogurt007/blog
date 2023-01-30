@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @Api("博客-记录")
-    @RequestMapping("/blog/records")
+@RequestMapping("/blog/records")
 @Slf4j
 public class BlogRecordsController {
 
