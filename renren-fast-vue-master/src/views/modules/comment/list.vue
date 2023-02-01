@@ -1,11 +1,13 @@
 <template>
   <div>
     <el-table v-if="list" :data="list" border fit highlight-current-row>
-      <!-- <el-table-column width="60" label="序号">
+        
+      <el-table-column width="60" label="序号">
         <template slot-scope="scope">
           {{ (page - 1) * limit + scope.$index + 1 }}
         </template>
-      </el-table-column> -->
+      </el-table-column>
+
       <el-table-column prop="content" label="内容" />
 
       <el-table-column prop="examined" label="审核状态">
@@ -36,6 +38,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+        :current-page="page"
+        :page-size="limit"
+        :total="total"
+        style="padding: 30px 0; text-align: center"
+        layout="total, prev, pager, next, jumper"
+        @current-change="getPageInfo"
+      />
   </div>
 </template>
 
@@ -44,22 +54,29 @@ export default {
   data() {
     return {
       list: null,
+      page: 1, //开始页
+      limit: 8, //每页记录数
+      total: 10, //总记录数
     };
   },
   created() {
-    this.getCommentList();
+    this.getPageInfo();
   },
   methods: {
-    getCommentList() {
+    getPageInfo(page = 1) {
+      this.page = page;
       this.$http({
-        url: this.$http.adornUrl("/blog/comment/list/"),
+        url: this.$http.adornUrl(
+          "/blog/comment/page/" + this.page + "/" + this.limit
+        ),
         method: "get",
       }).then(({ data }) => {
         if (data && data.code === 0) {
-          this.list = data.list;
-          console.log(this.list);
+          this.list = data.pageInfo.records;
+          //console.log(this.list);
+          this.total = data.pageInfo.records.length;
         } else {
-          this.$message.error("获取列表失败");
+          this.$message.error("获取评论列表失败");
         }
       });
     },

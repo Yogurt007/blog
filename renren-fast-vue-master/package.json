@@ -19,6 +19,7 @@
     "babel-polyfill": "6.26.0",
     "el-table-infinite-scroll": "^3.0.1",
     "element-ui": "2.8.2",
+    "fingerprintjs2": "^2.1.4",
     "gulp": "4.0.2",
     "gulp-concat": "2.6.1",
     "gulp-load-plugins": "2.0.5",

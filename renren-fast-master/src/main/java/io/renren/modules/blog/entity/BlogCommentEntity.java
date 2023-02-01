@@ -28,6 +28,9 @@ public class BlogCommentEntity {
     @TableLogic
     private int deleted;
 
+    //浏览器指纹
+    private String uniqueId;
+
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 

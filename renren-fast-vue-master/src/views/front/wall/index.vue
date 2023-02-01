@@ -9,9 +9,11 @@
     <div>
       <el-input
         v-model="content"
-        :autosize="{ minRows: 5, maxRows: 10 }"
+        :autosize="{ minRows: 3, maxRows: 10 }"
         type="textarea"
-        placeholder="Please input"
+        :placeholder="tips"
+        :disabled="!commentStatus"
+        style="font-size:200% "
       />
     </div>
     <div>
@@ -29,7 +31,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="content">
+        <!-- <el-table-column prop="content"> </el-table-column> -->
+        <el-table-column> 
+          <template slot-scope="scope">
+            <span style="font-size:130%">{{scope.row.content}}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="createTime" width="100" />
       </el-table>
@@ -47,6 +53,7 @@
 
 <script>
 import { set } from "lodash-es";
+import Fingerprint2 from "fingerprintjs2";
 export default {
   data() {
     return {
@@ -56,12 +63,15 @@ export default {
       page: 1, //开始页
       limit: 8, //每页记录数
       total: 10, //总记录数
+      uniqueId: "",
+      commentStatus: true,
+      tips:"Please input",
     };
   },
   methods: {
     showImg() {
-      console.log("点击");
-      if(this.content.length >= 1){
+      //console.log("留言状态： " + this.commentStatus);
+      if (this.content.length >= 1) {
         this.save();
       }
       this.changeShow();
@@ -73,14 +83,14 @@ export default {
         this.show = true;
       }
     },
-    save(){
-      console.log("保存了");
+    save() {
       this.$http({
         url: this.$http.adornUrl("/blog/comment/save"),
         method: "post",
         data: this.$http.adornData({
-          content: this.content
-        })
+          content: this.content,
+          uniqueId: this.uniqueId,
+        }),
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.$message({
@@ -94,7 +104,7 @@ export default {
         }
       });
     },
-    getPageInfo(page = 1){  
+    getPageInfo(page = 1) {
       this.page = page;
       this.$http({
         url: this.$http.adornUrl(
@@ -104,17 +114,49 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.list = data.pageInfo.records;
-          console.log(this.list);
+          //console.log(this.list);
           this.total = data.pageInfo.records.length;
         } else {
           this.$message.error("获取评论列表失败");
         }
       });
-    }
+    },
+    getUniqueId() {
+      var that = this;
+      var fingerprint = Fingerprint2.get(function (components) {
+        const values = components.map(function (component, index) {
+          if (index === 0) {
+            //把微信浏览器里UA的wifi或4G等网络替换成空,不然切换网络会ID不一样
+            return component.value.replace(/\bNetType\/\w+\b/, "");
+          }
+          return component.value;
+        });
+        // 生成最终id murmur
+        var murmur = Fingerprint2.x64hash128(values.join(""), 31);
+        that.uniqueId = murmur;
+        //console.log("唯一标识： " + that.uniqueId);
+        that.queryCommentTime()
+      });
+    },
+    //查询最近一次留言时间
+    queryCommentTime() {
+      //console.log("传参标识： " + this.uniqueId);
+      this.$http({
+        url: this.$http.adornUrl("/blog/comment/fingerprint/" + this.uniqueId),
+        method: "get",
+      }).then(({ data }) => {
+        if (data && data.code === 500) {
+          this.commentStatus = false
+          this.tips = "留言过于频繁，请等等再试试~"
+        }
+      });
+    },
   },
-  created(){
-    this.getPageInfo()
-  }
+  created() {
+    this.getPageInfo();
+    this.getUniqueId();
+    
+  },
 };
 </script>
 

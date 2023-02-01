@@ -13,10 +13,10 @@
             <span class="title">随笔</span>
         </el-menu-item>
         <el-menu-item index="4" @click="$router.push({ name: 'front-record-list' })">
-            <span class="title">文艺</span>
+            <span class="title">照片墙</span>
         </el-menu-item>
         <el-menu-item index="5" @click="$router.push({name: 'front-wall'})">
-            <span class="title">墙</span>
+            <span class="title">后花园</span>
         </el-menu-item>
         <el-menu-item index="6" @click="$router.push({name: 'home'})">
             <span class="title"></span>
