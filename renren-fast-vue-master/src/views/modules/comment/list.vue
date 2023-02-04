@@ -67,7 +67,7 @@ export default {
       this.page = page;
       this.$http({
         url: this.$http.adornUrl(
-          "/blog/comment/page/" + this.page + "/" + this.limit
+          "/blog/comment/pageAdmin/" + this.page + "/" + this.limit
         ),
         method: "get",
       }).then(({ data }) => {

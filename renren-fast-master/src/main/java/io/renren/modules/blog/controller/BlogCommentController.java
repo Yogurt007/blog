@@ -84,6 +84,16 @@ public class BlogCommentController {
         return R.ok().put("pageInfo",pageInfo);
     }
 
+    @ApiOperation("分页列表-后台")
+    @GetMapping("/pageAdmin/{page}/{pageSize}")
+    public R pageAdmin(@PathVariable("page") int page,@PathVariable("pageSize") int pageSize){
+        Page<BlogCommentEntity> pageInfo = new Page<>(page, pageSize);
+        LambdaQueryWrapper<BlogCommentEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(BlogCommentEntity::getCreateTime);
+        blogCommentService.page(pageInfo,queryWrapper);
+        return R.ok().put("pageInfo",pageInfo);
+    }
+
     @ApiOperation("根据浏览器指纹查询评论时间")
     @GetMapping("/fingerprint/{uniqueId}")
     public R fingerprint(@PathVariable("uniqueId") String uniqueId){

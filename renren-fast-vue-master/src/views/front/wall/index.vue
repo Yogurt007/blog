@@ -99,6 +99,8 @@ export default {
             duration: 2000,
           });
           this.content = "";
+          this.commentStatus = false
+          this.tips = "留言过于频繁，请等等再试试~"
         } else {
           this.$message.error("留言失败");
         }
