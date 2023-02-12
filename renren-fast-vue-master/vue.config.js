@@ -1,5 +1,6 @@
 module.exports = {
 
+  lintOnSave:false
   // 配置跨域请求
   // devServer: {
   //   port: 9001,

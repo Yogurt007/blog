@@ -79,7 +79,7 @@ export default {
       total: 10, //总记录数
       queryInput: "",
       titleImgUrl:
-        "https://edu-po.oss-cn-beijing.aliyuncs.com/20230110/4da8ec9a82c84d8990709d4020764549.png",
+        "https://edu-po.oss-cn-beijing.aliyuncs.com/blog/luyuan.jpg",
     };
   },
   created() {

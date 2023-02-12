@@ -79,7 +79,7 @@ export default {
       total: 10, //总记录数
       queryInput: "",
       titleImgUrl:
-        "https://edu-po.oss-cn-beijing.aliyuncs.com/20230110/4da8ec9a82c84d8990709d4020764549.png",
+        "https://edu-po.oss-cn-beijing.aliyuncs.com/blog/luyuan.jpg",
     };
   },
   created() {
@@ -105,7 +105,7 @@ export default {
         url: this.$http.adornUrl(
           "/blog/article/notesPage/" + this.page + "/" + this.limit
         ),
-        methods: "get",
+        method: "get",
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.list = data.pageInfo.records;
@@ -147,6 +147,7 @@ export default {
       return this.titleImgUrl;
     },
   },
+  computed: {},
 };
 </script>
 
@@ -157,9 +158,6 @@ export default {
   width: 70%;
   margin: auto;
   background-color: #f9f9f9;
-}
-.of {
-  list-style: none;
 }
 ul {
   margin-top: 0;
