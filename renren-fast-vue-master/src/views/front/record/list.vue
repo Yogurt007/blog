@@ -14,7 +14,11 @@
                 <span class="title">{{ artDto.blogRecordsEntity.title }}</span>
               </div>
               <div>
-                <div v-for="(art, index) in artDto.artList" :key="index" class="art-div">
+                <div
+                  v-for="(art, index) in artDto.artList"
+                  :key="index"
+                  class="art-div"
+                >
                   <img :src="art.url" class="art-img" />
                 </div>
               </div>
@@ -32,7 +36,16 @@ export default {
   data() {
     return {
       artDtoList: [],
+      image: "https://edu-po.oss-cn-beijing.aliyuncs.com/blog/luyuan.jpg",
+      images: [
+          "https://picsum.photos/200/200",
+          "https://picsum.photos/300/200",
+          "https://picsum.photos/250/200"
+        ]
     };
+  },
+  comments: {
+    
   },
   methods: {
     getArtDtoList() {
@@ -43,10 +56,9 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.artDtoList = data.artDtoList;
-        } 
+        }
       });
     },
-    
   },
   created() {
     this.getArtDtoList();
@@ -74,17 +86,17 @@ export default {
   object-fit: contain;
   margin-right: 20px;
 }
-.art-div{
+.art-div {
   display: inline-block;
   margin-bottom: 20px;
 }
-.art-title{
+.art-title {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 20px;
   color: #ccc;
 }
-.line{
+.line {
   width: 95%;
   height: 1px;
   border-top: 1px solid #ccc;

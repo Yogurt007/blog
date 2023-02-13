@@ -1,8 +1,11 @@
 package io.renren.modules.blog.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.renren.common.utils.R;
+import io.renren.modules.blog.dao.BlogRecordsDao;
 import io.renren.modules.blog.dto.ArtDto;
 import io.renren.modules.blog.dto.RecordsDto;
+import io.renren.modules.blog.entity.BlogArtEntity;
 import io.renren.modules.blog.entity.BlogRecordsEntity;
 import io.renren.modules.blog.service.BlogArtService;
 import io.renren.modules.blog.service.BlogRecordsService;
@@ -61,6 +64,25 @@ public class BlogRecordsController {
         log.info("要删除的records的id为{}",id);
         boolean deleteRecords = blogRecordsService.deleteRecords(id);
         return deleteRecords ? R.ok() : R.error();
+    }
+
+    @ApiOperation("轮播图")
+    @GetMapping("/banner")
+    public R banner(){
+        log.info("获得轮播图");
+        LambdaQueryWrapper<BlogRecordsEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BlogRecordsEntity::getTitle,"轮播图");
+        queryWrapper.orderByDesc(BlogRecordsEntity::getCreateTime);
+        List<BlogRecordsEntity> banner = blogRecordsService.list(queryWrapper);
+        if (banner.size() <= 0){
+            return R.error();
+        }
+        BlogRecordsEntity blogRecords = banner.get(0);
+        //查图片
+        LambdaQueryWrapper<BlogArtEntity> queryWrapperArt = new LambdaQueryWrapper<>();
+        queryWrapperArt.eq(BlogArtEntity::getParentId,blogRecords.getId());
+        List<BlogArtEntity> bannerList = blogArtService.list(queryWrapperArt);
+        return R.ok().put("bannerList",bannerList);
     }
 
 }
