@@ -40,7 +40,7 @@
                 style="margin-left:20%"
               >
                 <h1>
-                  <a>{{ scope.row.title }}</a>
+                  <a href="#" style="text-decoration:none">{{ scope.row.title }}</a>
                 </h1>
               </div>
               <div style="margin-left:20%">

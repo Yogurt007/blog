@@ -129,6 +129,7 @@ public class BlogArticleController {
         String queryInput = queryJson.getQueryInput();
         LambdaQueryWrapper<BlogArticleEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BlogArticleEntity::getType,type);
+        queryWrapper.orderByDesc(BlogArticleEntity::getCreateTime);
 //        queryWrapper.like(BlogArticleEntity::getTitle,queryInput);
 //        queryWrapper.like(BlogArticleEntity::getContent,queryInput);
         queryWrapper.and(blogArticleEntityLambdaQueryWrapper ->

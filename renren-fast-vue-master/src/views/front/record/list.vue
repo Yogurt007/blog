@@ -7,7 +7,7 @@
             <section class="i-article-wrap">
               <div>
                 <span class="time">{{
-                  artDto.blogRecordsEntity.createTime.substring(0, 10)
+                  artDto.blogRecordsEntity.createTime.substring(0, 10).replaceAll("-",".")
                 }}</span>
               </div>
               <div class="art-title">
@@ -18,6 +18,7 @@
                   v-for="(art, index) in artDto.artList"
                   :key="index"
                   class="art-div"
+                  v-viewer
                 >
                   <img :src="art.url" class="art-img" />
                 </div>
@@ -28,6 +29,9 @@
         </ul>
       </article>
     </div>
+    <div>
+
+  </div>
   </div>
 </template>
 
@@ -37,15 +41,9 @@ export default {
     return {
       artDtoList: [],
       image: "https://edu-po.oss-cn-beijing.aliyuncs.com/blog/luyuan.jpg",
-      images: [
-          "https://picsum.photos/200/200",
-          "https://picsum.photos/300/200",
-          "https://picsum.photos/250/200"
-        ]
     };
   },
   comments: {
-    
   },
   methods: {
     getArtDtoList() {
@@ -85,6 +83,7 @@ export default {
   width: 300px;
   object-fit: contain;
   margin-right: 20px;
+  cursor: pointer;
 }
 .art-div {
   display: inline-block;
