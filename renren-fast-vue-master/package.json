@@ -29,11 +29,13 @@
     "node-sass": "^6.0.1",
     "npm": "^6.9.0",
     "sass-loader": "6.0.6",
+    "save": "^2.9.0",
     "svg-sprite-loader": "3.7.3",
     "swiper": "^5.4.5",
     "v-viewer": "^1.6.4",
     "vue": "2.5.16",
     "vue-cookie": "1.1.4",
+    "vue-infinite-loading": "^2.4.5",
     "vue-router": "3.0.1",
     "vue2-viewer": "^1.0.3",
     "vuex": "3.0.1"

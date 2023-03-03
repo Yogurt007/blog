@@ -3,11 +3,13 @@
     <div>
       <article class="i-article-list">
         <ul class="of">
-          <li v-for="(artDto, index) in artDtoList" :key="index">
+          <li v-for="(artDto, index) in artDtoList.slice(0, num)" :key="index">
             <section class="i-article-wrap">
               <div>
                 <span class="time">{{
-                  artDto.blogRecordsEntity.createTime.substring(0, 10).replaceAll("-",".")
+                  artDto.blogRecordsEntity.createTime
+                    .substring(0, 10)
+                    .replaceAll("-", ".")
                 }}</span>
               </div>
               <div class="art-title">
@@ -29,9 +31,11 @@
         </ul>
       </article>
     </div>
-    <div>
-
-  </div>
+    <div style="width: 100%">
+      <button class="loading-btn" @click="loading" v-show="loadingStatus">
+        <img src="~@/assets/img/loading.png" style="height: 100px" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -39,12 +43,13 @@
 export default {
   data() {
     return {
+      loadingStatus: true,
+      num: 5,
       artDtoList: [],
       image: "https://edu-po.oss-cn-beijing.aliyuncs.com/blog/luyuan.jpg",
     };
   },
-  comments: {
-  },
+  comments: {},
   methods: {
     getArtDtoList() {
       this.$http({
@@ -54,13 +59,34 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.artDtoList = data.artDtoList;
+          if (this.num >= this.artDtoList.length) {
+            this.loadingStatus = false;
+          }
         }
       });
+    },
+    loading() {
+      if (this.num >= this.artDtoList.length) {
+        this.loadingStatus = false;
+        return;
+      }
+      this.num = this.num + 5;
+    },
+    scrollBottom() {
+      let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      let clientHeight = document.documentElement.clientHeight;
+      let scrollHeight = document.documentElement.scrollHeight;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        this.loading();
+      }
     },
   },
   created() {
     this.getArtDtoList();
+    window.addEventListener("scroll", this.scrollBottom);
   },
+  mounted() {},
 };
 </script>
 
@@ -101,5 +127,16 @@ export default {
   border-top: 1px solid #ccc;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+.loading-btn:focus {
+  outline: none;
+}
+.loading-btn {
+  text-align: center;
+  border: none;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
