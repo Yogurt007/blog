@@ -85,7 +85,7 @@ export default {
   }
 }
 .read-main {
-  width: 70%;
+  width: 100%;
   margin: auto;
 }
 .read-title {

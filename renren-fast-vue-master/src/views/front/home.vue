@@ -60,8 +60,6 @@ export default {
         params: this.$http.adornParams(),
       }).then(({ data }) => {
         if (data && data.code === 0) {
-          console.log("获取banner列表成功");
-          console.log(data.bannerList);
           this.bannerList = data.bannerList;
         }
       });
@@ -76,7 +74,7 @@ export default {
 <style>
 .home-body {
   height: 750px;
-  width: 70%;
+  width: 100%;
   margin: auto;
   background-color: #fbfbfb;
   background-image: url(~@/assets/img/front_index.png);

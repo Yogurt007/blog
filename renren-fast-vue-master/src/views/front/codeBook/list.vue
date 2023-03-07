@@ -155,7 +155,7 @@ export default {
 .blog-main {
 }
 .blog-article {
-  width: 70%;
+  width: 100%;
   margin: auto;
   background-color: #f9f9f9;
 }

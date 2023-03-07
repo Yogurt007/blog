@@ -164,7 +164,7 @@ export default {
 
 <style>
 .wall-main {
-  width: 70%;
+  width: 100%;
   margin: auto;
   background-color: #f9f9f9;
 }
