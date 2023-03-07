@@ -14,11 +14,8 @@ public class Encoder {
 			} else {
 				builder.append( "\\u" +  Integer.toHexString( ch& 0xffff ) );
 			}
-			
 		}
-		
 		return builder.toString();
-		
 	}
 	
 }

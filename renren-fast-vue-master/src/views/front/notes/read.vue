@@ -34,7 +34,7 @@ export default {
         type: "error",
         duration: 1500,
       });
-      this.$router.push({ name: "front-blog-list" });
+      this.$router.push({ name: "front-notes-list" });
     }
   },
   mounted() {
@@ -65,6 +65,13 @@ export default {
           this.ue.ready(() => {
             this.ue.setContent(data.article.content);
           });
+        }else{
+          this.$message({
+            message: "获取文章失败",
+            type: "error",
+            duration: 1500,
+          });
+          this.$router.push({ name: "front-notes-list" });
         }
         this.$http({
           url: this.$http.adornUrl("/blog/article/look/" + this.id),
@@ -92,8 +99,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
-  font-size: 30px;
-  color: cadetblue;
+  font-size: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: rgb(72, 135, 139);
+  background-color: aliceblue;
 }
 </style>
