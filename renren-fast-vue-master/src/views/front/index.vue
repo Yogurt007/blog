@@ -9,15 +9,16 @@
     </div>
   </div>
 </template>
-
 <script>
 import FrontHeader from "./front-header.vue";
 import FrontFooter from "./front-footer.vue";
+import snow from '../../assets/js/snow'
 export default {
   name: "front",
   components: {
     FrontHeader,
     FrontFooter,
+    snow
   },
 };
 </script>
@@ -43,6 +44,8 @@ body {
   border: 2px solid;
   border-radius: 10px;
 }
+.main{
+}
 @keyframes animated-border {
   0% {
     box-shadow: 0 0 0 0 rgba(255,255,255,0.4);
@@ -51,4 +54,5 @@ body {
      box-shadow: 0 0 0 30px rgba(255,255,255,0);
   }
 }
+
 </style>
